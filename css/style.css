@@ -76,3 +76,7 @@ input{font:inherit;width:100%;padding:11px;border:1px solid var(--g);border-radi
 .door.reveal{animation:destello 2.2s ease-out}
 @keyframes revela{0%{opacity:0;filter:blur(14px) grayscale(1) brightness(1.8);transform:scale(1.25)}60%{opacity:1;filter:blur(3px) grayscale(.6) brightness(1.2)}100%{opacity:1;filter:none;transform:none}}
 @keyframes destello{0%{box-shadow:0 0 0 0 var(--o)}40%{box-shadow:0 0 28px 8px var(--o)}100%{box-shadow:0 0 0 0 transparent}}
+
+.floaty{z-index:3}
+.floaty img{opacity:0;animation:floaty 7s ease-in-out forwards}
+@keyframes floaty{0%{opacity:0;transform:scale(.6) rotate(var(--r))}18%,72%{opacity:.95;transform:scale(1) rotate(var(--r))}100%{opacity:0;transform:scale(1.08) translateY(-25px) rotate(var(--r))}}

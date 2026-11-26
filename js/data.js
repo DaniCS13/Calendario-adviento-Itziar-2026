@@ -29,6 +29,7 @@ const CONFIG = {
   // FOTOS EN EL CALENDARIO (true = sí, false = no)
   fotoEnPuertas: true,    // Al completar un día, su puerta "revela" nuestra foto (el número siempre se ve)
   fotosFlotantes: true,   // Fotos nuestras que aparecen y desaparecen por la página (días completados)
+  fotosFlotantesDe: "desbloqueados", // "desbloqueados" = fotos de los días ya disponibles; "completados" = solo de los días ya resueltos
 
   // PRUEBAS: pon un número (ej. 24) para desbloquear hasta ese día. null = fecha real.
   // También puedes probar con la dirección: index.html?dia=24

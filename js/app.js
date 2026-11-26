@@ -129,17 +129,25 @@
     }
   }
 
-  // Fotos vuestras que aparecen y desaparecen suavemente por la página (solo de días ya completados).
+  // Fotos vuestras que aparecen y desaparecen alrededor del calendario (en los márgenes).
   function flotantes() {
     if (!C.fotosFlotantes) return;
     const box = document.createElement("div"); box.className = "floaty"; document.body.appendChild(box);
     setInterval(() => {
-      if (!done.length) return;
-      const d = D[done[Math.floor(Math.random() * done.length)] - 1];
+      const dias = C.fotosFlotantesDe === "completados" ? done : D.filter(d => d.dia <= unlocked).map(d => d.dia);
+      if (!dias.length || box.children.length >= 5) return;
+      const d = D[dias[Math.floor(Math.random() * dias.length)] - 1];
+      const W = innerWidth, H = innerHeight, size = W < 600 ? 95 : 140;
+      const margen = (W - 640) / 2;                       // espacio libre a cada lado en pantallas grandes
+      const izq = Math.random() < .5;
+      let x;
+      if (margen > size + 10) x = izq ? 5 + Math.random() * (margen - size - 10) : W - margen + 5 + Math.random() * (margen - size - 10);
+      else x = izq ? -size * .35 + Math.random() * 10 : W - size * .65 - Math.random() * 10; // en móvil asoman por los bordes
+      const y = 10 + Math.random() * Math.max(10, H - size - 20);
       const i = document.createElement("img"); i.src = d.foto; i.alt = ""; i.onerror = () => i.remove();
-      i.style.cssText = `left:${Math.random() * 80}%;top:${Math.random() * 80}%;--r:${Math.random() * 20 - 10}deg`;
+      i.style.cssText = `width:${size}px;left:${x}px;top:${y}px;--r:${Math.random() * 24 - 12}deg`;
       box.appendChild(i); setTimeout(() => i.remove(), 7000);
-    }, 2500);
+    }, 1800);
   }
 
   function musica() {

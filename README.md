@@ -33,7 +33,7 @@ Calendario-Adviento/
 - ¿Otro nombre o formato? En `data.js`, dentro de ese día: `foto: "assets/photos/playa.png"` o `regalo: "assets/gifts/libro.png"`.
 
 ### Fotos en el calendario
-Las puertas sin resolver muestran solo el número, bien visible. Al resolver la prueba de un día y cerrar la ventana, la puerta **revela** nuestra foto de ese día (`assets/photos/day-XX.jpg`) con un pequeño efecto de "revelado", y el número queda en una insignia dorada en la esquina. Además, fotos de los días completados aparecen y desaparecen suavemente por la página. Se activan o desactivan en `data.js` con `fotoEnPuertas` y `fotosFlotantes` (`true`/`false`).
+Las puertas sin resolver muestran solo el número, bien visible. Al resolver la prueba de un día y cerrar la ventana, la puerta **revela** nuestra foto de ese día (`assets/photos/day-XX.jpg`) con un pequeño efecto de "revelado", y el número queda en una insignia dorada en la esquina. Además, fotos suyas aparecen y desaparecen suavemente por los márgenes de la página (de los días disponibles; para que sean solo de los resueltos, usa `fotosFlotantesDe: "completados"` en `data.js`). Se activan o desactivan en `data.js` con `fotoEnPuertas` y `fotosFlotantes` (`true`/`false`).
 
 ## 4. Cambiar preguntas y respuestas (ejemplos)
 Todo en `js/data.js`.
