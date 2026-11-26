@@ -6,9 +6,11 @@
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const norm = s => String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\/ ]/g, "").replace(/\s+/g, " ").trim();
   const LABEL = { test: "Pregunta test", texto: "Respuesta escrita", ordenar: "Ordena la frase" };
+  // MODO PRUEBA: si la dirección lleva ?dia=N (o diaPrueba en data.js), el progreso NO se carga ni se guarda.
+  const PRUEBA = new URLSearchParams(location.search).get("dia") !== null || Number.isInteger(C.diaPrueba);
   let done = [], unlocked = 0, nuevo = null;
-  try { done = JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) {}
-  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {} };
+  if (!PRUEBA) { try { done = JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { } }
+  const save = () => { if (PRUEBA) return; try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) { } };
 
   // Fecha real: se lee de la cabecera "Date" del servidor (no del reloj del móvil).
   async function fecha() {
@@ -16,7 +18,7 @@
       const r = await fetch(location.pathname, { method: "HEAD", cache: "no-store" });
       const h = r.headers.get("Date"); const d = h && new Date(h);
       if (d && !isNaN(d)) return d;
-    } catch (e) {}
+    } catch (e) { }
     return new Date(); // Plan B: reloj del dispositivo
   }
   function diasDesbloqueados(d) {
@@ -164,6 +166,7 @@
     const q = new URLSearchParams(location.search).get("dia");
     const t = q !== null ? parseInt(q, 10) : C.diaPrueba;
     unlocked = Number.isInteger(t) ? Math.max(0, Math.min(24, t)) : diasDesbloqueados(await fecha());
+    if (PRUEBA) { const b = document.createElement("div"); b.className = "prueba"; b.textContent = "🧪 Modo prueba: el progreso no se guarda. Recarga para empezar de cero."; document.body.appendChild(b); }
     grid(); nieve(); flotantes(); musica();
     $("#grid").onclick = e => { const b = e.target.closest(".door"); if (b) openDay(+b.dataset.d); };
     $("#cerrar").onclick = cerrar;
