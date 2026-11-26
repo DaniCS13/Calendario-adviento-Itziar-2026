@@ -27,6 +27,19 @@
     return k >= a + 1224 ? 24 : k >= a + 1201 ? p[2] : 0;
   }
 
+  // Días que faltan hasta el 1 de diciembre (según la fecha real del servidor).
+  function diasHasta(d) {
+    const p = new Intl.DateTimeFormat("en-CA", { timeZone: C.zonaHoraria, year: "numeric", month: "2-digit", day: "2-digit" }).format(d).split("-").map(Number);
+    return Math.round((Date.UTC(C.anio, 11, 1) - Date.UTC(p[0], p[1] - 1, p[2])) / 864e5);
+  }
+  function contador(ahora) {
+    const n = diasHasta(ahora);
+    if (n < 1) return;
+    const e = document.createElement("div"); e.className = "cuenta";
+    e.innerHTML = `<span class="cn">${n === 1 ? "¡Solo falta 1 día!" : `Faltan ${n} días`}</span><span class="cs">para abrir la primera puerta, el 1 de diciembre 🎄</span>`;
+    $("#dedicatoria").after(e);
+  }
+
   function toast(t) { const e = $("#toast"); e.textContent = t; e.classList.add("on"); setTimeout(() => e.classList.remove("on"), 2500); }
 
   function grid() {
@@ -165,7 +178,9 @@
     $("#titulo").textContent = C.titulo; $("#dedicatoria").textContent = C.dedicatoria; document.title = C.titulo;
     const q = new URLSearchParams(location.search).get("dia");
     const t = q !== null ? parseInt(q, 10) : C.diaPrueba;
-    unlocked = Number.isInteger(t) ? Math.max(0, Math.min(24, t)) : diasDesbloqueados(await fecha());
+    const ahora = await fecha();
+    unlocked = Number.isInteger(t) ? Math.max(0, Math.min(24, t)) : diasDesbloqueados(ahora);
+    if (unlocked === 0) contador(ahora);
     if (PRUEBA) { const b = document.createElement("div"); b.className = "prueba"; b.textContent = "🧪 Modo prueba: el progreso no se guarda. Recarga para empezar de cero."; document.body.appendChild(b); }
     grid(); nieve(); flotantes(); musica();
     $("#grid").onclick = e => { const b = e.target.closest(".door"); if (b) openDay(+b.dataset.d); };

@@ -608,3 +608,25 @@ input {
     font: 600 .8rem system-ui, sans-serif;
     padding: 4px 8px
 }
+
+.cuenta {
+    margin: 4px auto 18px;
+    padding: 14px 18px;
+    max-width: 380px;
+    border: 1px solid var(--o);
+    border-radius: 16px;
+    background: #ffffff14;
+    display: flex;
+    flex-direction: column;
+    gap: 4px
+}
+
+.cuenta .cn {
+    font: 700 1.9rem "Playfair Display", Georgia, serif;
+    color: var(--o)
+}
+
+.cuenta .cs {
+    font-size: 1.05rem;
+    color: var(--p)
+}
