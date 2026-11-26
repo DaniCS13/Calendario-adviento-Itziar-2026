@@ -144,25 +144,43 @@
     }
   }
 
-  // Fotos vuestras que aparecen y desaparecen alrededor del calendario (en los márgenes).
+  // Fotos vuestras que aparecen y desaparecen A LA VEZ en varios huecos alrededor del calendario.
+  // Cada hueco (a izquierda y derecha) funciona por su cuenta: muestra una foto, la desvanece y pone otra.
   function flotantes() {
     if (!C.fotosFlotantes) return;
     const box = document.createElement("div"); box.className = "floaty"; document.body.appendChild(box);
-    setInterval(() => {
+    const VIDA = 14000;      // cuánto tiempo se queda cada foto (ms)
+    const ENTRE = 3500;      // cada cuánto aparece una foto nueva al empezar (ms): van llegando de poco en poco
+    const porLado = innerWidth >= 900 ? 4 : 3;
+    const pool = () => {
       const dias = C.fotosFlotantesDe === "completados" ? done : D.filter(d => d.dia <= unlocked).map(d => d.dia);
-      if (!dias.length || box.children.length >= 5) return;
-      const d = D[dias[Math.floor(Math.random() * dias.length)] - 1];
-      const W = innerWidth, H = innerHeight, size = W < 600 ? 95 : 140;
-      const margen = (W - 640) / 2;                       // espacio libre a cada lado en pantallas grandes
-      const izq = Math.random() < .5;
-      let x;
-      if (margen > size + 10) x = izq ? 5 + Math.random() * (margen - size - 10) : W - margen + 5 + Math.random() * (margen - size - 10);
-      else x = izq ? -size * .35 + Math.random() * 10 : W - size * .65 - Math.random() * 10; // en móvil asoman por los bordes
-      const y = 10 + Math.random() * Math.max(10, H - size - 20);
-      const i = document.createElement("img"); i.src = d.foto; i.alt = ""; i.onerror = () => i.remove();
-      i.style.cssText = `width:${size}px;left:${x}px;top:${y}px;--r:${Math.random() * 24 - 12}deg`;
-      box.appendChild(i); setTimeout(() => i.remove(), 7000);
-    }, 1800);
+      return dias.map(n => D[n - 1].foto).concat(C.fotosExtra || []);
+    };
+    function hueco(izq, k, retraso) {
+      const mostrar = () => {
+        const fotos = pool();
+        if (!fotos.length) return setTimeout(mostrar, 3000);
+        const usadas = [...box.querySelectorAll("img")].map(e => e.dataset.f);
+        const libres = fotos.filter(f => !usadas.includes(f));
+        const lista = libres.length ? libres : fotos;
+        const foto = lista[Math.floor(Math.random() * lista.length)];
+        const W = innerWidth, H = innerHeight, margen = (W - 640) / 2;
+        const enMargen = margen >= 120;
+        const size = enMargen ? Math.min(150, margen - 15) : (W < 600 ? 90 : 110);
+        let x;
+        if (enMargen) x = (izq ? 5 : W - margen + 5) + Math.random() * Math.max(0, margen - size - 10);
+        else x = izq ? -size * .35 + Math.random() * 8 : W - size * .65 - Math.random() * 8; // en móvil asoman por los bordes
+        const banda = (H - size) / porLado;
+        const y = Math.max(5, k * banda + Math.random() * Math.max(0, banda - 10));
+        const el = document.createElement("img"); el.src = foto; el.alt = ""; el.dataset.f = foto;
+        el.onerror = () => el.remove();
+        el.style.cssText = `width:${size}px;left:${x}px;top:${y}px;--r:${Math.random() * 24 - 12}deg;animation-duration:${VIDA}ms`;
+        box.appendChild(el);
+        setTimeout(() => { el.remove(); setTimeout(mostrar, 1500 + Math.random() * 3000); }, VIDA);
+      };
+      setTimeout(mostrar, retraso);
+    }
+    for (let k = 0; k < porLado; k++) { hueco(true, k, 2 * k * ENTRE + Math.random() * 1500); hueco(false, k, (2 * k + 1) * ENTRE + Math.random() * 1500); }
   }
 
   function musica() {
