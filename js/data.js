@@ -80,7 +80,7 @@ const DIAS = [
   },
   {
 
-    dia: 8, tipo: "test", pregunta: "¿Como se llama nuestra racha?",
+    dia: 7, tipo: "test", pregunta: "¿Como se llama nuestra racha?",
     opciones: ["Pere Milla", "Pocholo", "Gordito"], correcta: "Pere Milla", pista: "Mi jugador favorito",
     titulo: "Regalo 7", descripcion: "       ✏️          "
   },
