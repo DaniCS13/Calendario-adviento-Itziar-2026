@@ -95,18 +95,18 @@ const DIAS = [
     titulo: "Regalo 9", descripcion: "       ✏️          "
   },
   {
-    dia: 10, tipo: "texto", pregunta: "Cuanto más me quitas, más grande soy. ¿Qué soy?",
-    respuestas: ["agujero", "un agujero", "hoyo", "un hoyo"], pista: "Se hace con una pala.",
+    dia: 10, tipo: "texto", pregunta: "¿Que flores son las que mas te gustan?",
+    respuestas: ["lirios", "los lirios"], pista: "",
     titulo: "Regalo 10", descripcion: "       ✏️          "
   },
   {
-    dia: 11, tipo: "test", pregunta: "¿Qué flor simboliza el amor?",
-    opciones: ["Girasol", "Rosa roja", "Margarita"], correcta: "Rosa roja", pista: "Tiene espinas.",
+    dia: 11, tipo: "test", pregunta: "¿Con que coche te fui a buscar la primera cita?",
+    opciones: ["Bora", "Picasso", "el bora"], correcta: "Bora", pista: "",
     titulo: "Regalo 11", descripcion: "       ✏️          "
   },
   {
-    dia: 12, tipo: "texto", pregunta: "✏️ ¿En qué mes empezamos a salir?",
-    respuestas: ["marzo"], pista: "✏️ Pista personal.",
+    dia: 12, tipo: "texto", pregunta: "¿Como te suelo llamar?",
+    respuestas: ["Mi Pocholeta", "Mi Cachorrita"], pista: "Hay muchas formas",
     titulo: "Regalo 12", descripcion: "       ✏️          "
   },
   {
