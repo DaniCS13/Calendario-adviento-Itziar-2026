@@ -630,3 +630,19 @@ input {
     font-size: 1.05rem;
     color: var(--p)
 }
+
+/* Fotos más pequeñas dentro de la ventana del día */
+.panel img {
+    width: auto;
+    max-width: 62%;
+    max-height: 34vh;
+    display: block;
+    margin: 10px auto;
+    object-fit: cover
+}
+
+.missing {
+    width: 62%;
+    margin: 10px auto;
+    padding: 28px 10px
+}

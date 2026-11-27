@@ -119,9 +119,13 @@
     if (anim) burst(last ? 60 : 18, last ? ["❄️", "❤️", "✨", "🎄"] : ["❤️", "✨"]);
     const s1 = last
       ? `<p class="tag">Día 24 · Nochebuena</p><h2>Una carta para ti 💌</h2><img src="${esc(d.foto)}" alt="Nosotros"><div class="carta">${C.carta.map(p => `<p>${esc(p)}</p>`).join("")}</div>`
-      : `<p class="tag">Día ${d.dia}</p><h2>¡Correcto! 🎉</h2><img src="${esc(d.foto)}" alt="Nosotros"><p class="msg">${esc(d.mensaje)}</p>`;
+      : `<p class="tag">Día ${d.dia}</p><h2>¡Correcto! 🎉</h2><img src="${esc(d.foto)}" alt="Nosotros"><p class="msg">`;
     const s2 = `<img src="${esc(d.regalo)}" alt="Regalo"><h2>${esc(d.titulo)}</h2><p>${esc(d.descripcion)}</p>` +
       (last ? `<p class="final">${esc(C.mensajeFinal)}</p>` : "");
+    if (!last) { // días 1-23: al acertar se muestra directamente el regalo (sin la foto de ustedes)
+      abrir(`<div class="stage"><p class="tag">Día ${d.dia}</p><h2>¡Correcto! 🎉</h2>${s2}</div>`);
+      return;
+    }
     abrir(`<div class="stage">${s1}<button class="btn" id="nx">Ver mi regalo 🎁</button></div><div class="stage" id="s2" hidden>${s2}</div>`);
     $("#nx").onclick = e => { e.target.hidden = true; $("#s2").hidden = false; $(".panel").scrollTo({ top: 99999, behavior: "smooth" }); if (last) burst(40, ["🎄", "❤️", "❄️"]); };
   }
