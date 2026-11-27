@@ -137,9 +137,9 @@
 
   function nieve() {
     const s = $("#snow");
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 20; i++) {
       const e = document.createElement("span"); e.textContent = "❄";
-      e.style.cssText = `left:${Math.random() * 100}%;font-size:${8 + Math.random() * 14}px;animation-duration:${8 + Math.random() * 10}s;animation-delay:-${Math.random() * 15}s`;
+      e.style.cssText = `left:${Math.random() * 100}%;font-size:${7 + Math.random() * 10}px;animation-duration:${7 + Math.random() * 9}s;animation-delay:-${Math.random() * 12}s`;
       s.appendChild(e);
     }
   }
@@ -152,9 +152,13 @@
     const VIDA = 14000;      // cuánto tiempo se queda cada foto (ms)
     const ENTRE = 3500;      // cada cuánto aparece una foto nueva al empezar (ms): van llegando de poco en poco
     const porLado = innerWidth >= 900 ? 4 : 3;
+    const rotas = new Set(); // fotos que no existen (no se vuelven a intentar)
+    // Desde el principio, sin abrir ningún día: fotos de los 24 días + fotos extra.
+    // (Si en data.js pones fotosFlotantesDe: "extra", solo salen las de fotosExtra.)
     const pool = () => {
-      const dias = C.fotosFlotantesDe === "completados" ? done : D.filter(d => d.dia <= unlocked).map(d => d.dia);
-      return dias.map(n => D[n - 1].foto).concat(C.fotosExtra || []);
+      const extra = C.fotosExtra || [];
+      const todas = C.fotosFlotantesDe === "extra" ? extra : D.map(d => d.foto).concat(extra);
+      return todas.filter(f => !rotas.has(f));
     };
     function hueco(izq, k, retraso) {
       const mostrar = () => {
@@ -173,10 +177,11 @@
         const banda = (H - size) / porLado;
         const y = Math.max(5, k * banda + Math.random() * Math.max(0, banda - 10));
         const el = document.createElement("img"); el.src = foto; el.alt = ""; el.dataset.f = foto;
-        el.onerror = () => el.remove();
+        let t;
+        el.onerror = () => { rotas.add(foto); el.remove(); clearTimeout(t); setTimeout(mostrar, 300); };
         el.style.cssText = `width:${size}px;left:${x}px;top:${y}px;--r:${Math.random() * 24 - 12}deg;animation-duration:${VIDA}ms`;
         box.appendChild(el);
-        setTimeout(() => { el.remove(); setTimeout(mostrar, 1500 + Math.random() * 3000); }, VIDA);
+        t = setTimeout(() => { el.remove(); setTimeout(mostrar, 1500 + Math.random() * 3000); }, VIDA);
       };
       setTimeout(mostrar, retraso);
     }

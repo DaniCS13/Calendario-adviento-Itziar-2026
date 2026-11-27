@@ -60,13 +60,13 @@ const DIAS = [
   },
   {
     dia: 3, tipo: "ordenar", pregunta: "Ordena las palabras para formar la frase:",
-    correcta: "        ", pista: "Empieza por «Eres».",
+    correcta: "Té amo, Té adoro y te compro un loro", pista: "Empieza por «Eres».",
     mensaje: "Y lo digo en serio.", titulo: "Regalo 3", descripcion: "     ✏️   "
   },
   {
-    dia: 4, tipo: "texto", pregunta: "¿ ?",
-    respuestas: ["cine", "en el cine"], pista: "✏️ Pista personal.",
-    mensaje: "Qué nervios y qué felicidad aquel día.", titulo: "Regalo 4", descripcion: "     ✏️     "
+    dia: 4, tipo: "texto", pregunta: "¿Que tres emjis uso para darte las buenas noches?",
+    respuestas: ["🤍🫶🏼💖"],
+    mensaje: "Te dejo mirar el movil.", titulo: "Regalo 4", descripcion: "     ✏️     "
   },
   {
     dia: 5, tipo: "test", pregunta: "¿Que dia oficialmente fuimos novios?",
@@ -74,7 +74,7 @@ const DIAS = [
     mensaje: "Sabia que te ibas a acordar...", titulo: "Regalo 5", descripcion: "    ✏️    "
   },
   {
-    dia: 6, tipo: "texto", pregunta: "¿Cómo se llama el reno de Papá Noel de la nariz roja?",
+    dia: 6, tipo: "texto", pregunta: "",
     respuestas: ["rudolph", "rodolfo"], pista: "Empieza por R.",
     mensaje: "Tu sonrisa ilumina más que su nariz.", titulo: "Regalo 6", descripcion: "    ✏️    "
   },
