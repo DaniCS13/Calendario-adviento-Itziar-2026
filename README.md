@@ -1,4 +1,4 @@
-# 🎄 Nuestro Adviento ❤️ · Calendario de Adviento romántico
+CALENDARIO DE ADVIENTO 2026
 
 Web interactiva (HTML + CSS + JavaScript puro) con 24 puertas, una prueba y una sorpresa cada día del 1 al 24 de diciembre de 2026. Sin instalar nada para ella: solo abre un enlace.
 
