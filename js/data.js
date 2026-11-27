@@ -24,7 +24,7 @@ const CONFIG = {
   zonaHoraria: "Europe/Madrid",     // Zona horaria para decidir "qué día es"
   titulo: "Calendario de Adviento 2026",
   dedicatoria: "Para la mejor novia del mundo", // ✏️
-  musica: "assets/music/navidad.mp3", // Pon aquí tu canción (o "" para quitar el botón)
+  musica: "assets/music/mariahcarey.mp3", // Pon aquí tu canción (o "" para quitar el botón)
 
   // FOTOS EN EL CALENDARIO (true = sí, false = no)
   fotoEnPuertas: true,    // Al completar un día, su puerta "revela" nuestra foto (el número siempre se ve)
